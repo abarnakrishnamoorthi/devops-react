@@ -1,67 +1,53 @@
-import './App.css';
-import Banner from './components/Banner';
-import Footer from './components/Footer';
-import Genre from './components/Genre';
-import Language from './components/Language';
-import Nav from './components/Nav';
-import NavBar from './components/NavBar';
-import Platforms from './components/Platforms';
-import Row from './components/Row';
-import requests from './request';
+import React, { useState } from "react";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form Submitted:", formData);
+  };
+
   return (
-    <>
-   <div className='rel'>
-   <div className="nnn">
-          <Nav/>
-        </div>
-     
-      <div className="aaa">
-        
-  
-  <div className='first'>
-    
-          <NavBar/>
-  </div>
-  
-   <div className='second'>
-  
-    <div className='stick'>
-      
-     <Banner/>
+    <div className="form-container">
+      <h2>Contact Form</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter your name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        <textarea
+          name="message"
+          placeholder="Enter your message"
+          value={formData.message}
+          onChange={handleChange}
+          required
+        ></textarea>
+        <button type="submit">Submit</button>
+      </form>
     </div>
-    <div className='lg'>
-    <img src="https://img10.hotstar.com/image/upload/f_auto,h_148/sources/r1/cms/prod/2744/1602744-t-f24fc98823fa" alt="" />
-            <h3>2023 . 2h 54m . 4 languages . <span>U/A 16+</span> </h3>
-            <p>In a crime-infested town, Kannan bhai and his gang are the reigning powers. To combat this reign and seek revenge, Inspector </p>
-            <h3>Action | Drama | Thriller | Drugs</h3>
-            <button className='btn'>Subscribe to Watch</button>
-            <button className='bb btn'>+</button>
-  
-  
-  
-    </div>
-    <div className='z'>
-            
-      <Row title="Latest releases" fetchUrl={requests.fetchActionMovies} />
-      <Row title="Free-Newly Added" fetchUrl={requests.fetchComedyMovies}/>
-      <Row title="Disney Movies" fetchUrl={requests.fetchDocumentaries}/>
-      <Platforms/>
-      <Language/>
-      <Genre/>
-      <Row title="Horror Movies" fetchUrl={requests.fetchHorrorMovies}/>
-      <Row title="Romantic Movies" fetchUrl={requests.fetchRomanceMovies}/>
-      <Row title="Populer Movies" fetchUrl={requests.fetchDoc}/>
-      <Footer/>
-    </div>
-    
-    
-   </div>
-      </div>
-   </div>
-    </>
   );
-}
+};
 
 export default App;
